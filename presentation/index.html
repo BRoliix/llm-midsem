@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>BLIVA - AAAI 2024</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/monokai.css">
+		<style>
+			/* Base responsive settings */
+			.reveal { font-size: 26px; }
+			.reveal .slides section {
+				padding: 25px 40px;
+				height: 100%;
+				box-sizing: border-box;
+			}
+			
+			/* Typography - balanced sizes */
+			.reveal h1 { font-size: 1.7em; color: #2c3e50; margin-bottom: 0.25em; margin-top: 0; }
+			.reveal h2 { font-size: 1.25em; color: #34495e; margin-bottom: 0.35em; margin-top: 0.25em; }
+			.reveal h3 { font-size: 1.05em; color: #7f8c8d; margin-bottom: 0.25em; margin-top: 0.25em; }
+			.reveal h4 { font-size: 0.9em; color: #95a5a6; margin-bottom: 0.2em; margin-top: 0.2em; }
+			
+			/* Content spacing */
+			.reveal section { text-align: left; font-size: 0.9em; line-height: 1.35; }
+			.reveal .center { text-align: center; }
+			.reveal ul { margin: 0.35em 0 0.35em 1.2em; }
+			.reveal li { margin: 0.25em 0; line-height: 1.35; }
+			.reveal p { margin: 0.35em 0; line-height: 1.35; }
+			.reveal div { line-height: 1.35; }
+			
+			/* Code blocks */
+			.reveal code { background: #f4f4f4; padding: 2px 5px; border-radius: 3px; font-size: 0.87em; }
+			.reveal pre { margin: 0.5em 0; }
+			.reveal pre code { 
+				font-size: 0.62em; 
+				line-height: 1.25; 
+				padding: 10px;
+				max-height: 400px;
+				overflow: auto;
+			}
+			
+			/* Tables */
+			.reveal table {
+				font-size: 0.7em;
+				margin: 0.5em 0;
+				width: 100%;
+				border-collapse: collapse;
+			}
+			.reveal table th,
+			.reveal table td {
+				padding: 4px 8px;
+				border: 1px solid #ddd;
+				line-height: 1.3;
+			}
+			.reveal table th {
+				background: #f0f0f0;
+				font-weight: bold;
+			}
+			
+			/* Architecture diagram */
+			.arch-diagram {
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				margin: 10px 0;
+				font-size: 0.65em;
+				flex-wrap: wrap;
+			}
+			.arch-box {
+				border: 2px solid #3498db;
+				border-radius: 6px;
+				padding: 8px 12px;
+				background: #ecf0f1;
+				min-width: 85px;
+				text-align: center;
+				font-weight: bold;
+				margin: 4px;
+			}
+			.arch-arrow {
+				font-size: 1.6em;
+				color: #3498db;
+				margin: 0 4px;
+			}
+			.dimension {
+				font-size: 0.75em;
+				color: #7f8c8d;
+				margin-top: 4px;
+				display: block;
+			}
+			.flow-diagram {
+				background: #f8f9fa;
+				padding: 10px;
+				border-radius: 8px;
+				margin: 10px 0;
+			}
+			
+			/* BLIVA Architecture Diagram - Grid Layout */
+			.bliva-arch-diagram {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				grid-template-rows: auto auto auto auto;
+				gap: 15px 18px;
+				background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+				padding: 18px;
+				border-radius: 10px;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+			}
+			
+			.bliva-arch-diagram > div {
+				transition: transform 0.2s, box-shadow 0.2s;
+				font-size: 1.1em;
+				font-weight: 600;
+			}
+			
+			.bliva-arch-diagram > div:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+			}
+			
+			.bliva-arch-diagram strong {
+				font-weight: 700;
+				font-size: 1.05em;
+			}
+			
+			/* Responsive adjustments */
+			@media screen and (max-width: 1024px) {
+				.reveal { font-size: 22px; }
+				.reveal .slides section { padding: 20px 30px; }
+			}
+			
+			@media screen and (max-width: 768px) {
+				.reveal { font-size: 20px; }
+				.reveal .slides section { padding: 15px 25px; }
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown="slides.md"
+						 data-separator="^\n---\n"
+						 data-separator-vertical="^\n--\n">
+				</section>
+			</div>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+		<script>
+			Reveal.initialize({
+				hash: true,
+				slideNumber: true,
+				transition: 'slide',
+				width: 1280,
+				height: 720,
+				margin: 0.05,
+				minScale: 0.2,
+				maxScale: 2.0,
+				center: false,
+				plugins: [ RevealMarkdown, RevealHighlight ]
+			});
+		</script>
+	</body>
+</html>
