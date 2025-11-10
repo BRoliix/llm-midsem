@@ -31,16 +31,47 @@
 			.reveal p { margin: 0.35em 0; line-height: 1.35; }
 			.reveal div { line-height: 1.35; }
 			
-			/* Code blocks */
-			.reveal code { background: #f4f4f4; padding: 2px 5px; border-radius: 3px; font-size: 0.87em; }
-			.reveal pre { margin: 0.5em 0; }
-			.reveal pre code { 
-				font-size: 0.62em; 
-				line-height: 1.25; 
-				padding: 10px;
-				max-height: 400px;
-				overflow: auto;
+			/* Code blocks - INCREASED SIZE */
+			.reveal code { 
+				background: #2d2d2d !important; 
+				color: #f8f8f2 !important;
+				padding: 3px 6px !important; 
+				border-radius: 3px !important; 
+				font-size: 22px !important;
+				font-family: 'Courier New', Courier, monospace !important;
 			}
+			.reveal pre { 
+				margin: 0.5em 0 !important;
+				width: 100% !important;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+				background: #2d2d2d !important;
+				border-radius: 8px !important;
+			}
+			.reveal pre code { 
+				font-size: 20px !important; 
+				line-height: 1.45 !important; 
+				padding: 20px !important;
+				max-height: 550px !important;
+				overflow: auto !important;
+				display: block !important;
+				background: #2d2d2d !important;
+				color: #f8f8f2 !important;
+				border-radius: 8px !important;
+			}
+			
+			/* Syntax highlighting colors */
+			.reveal pre code .hljs-keyword { color: #ff79c6 !important; }
+			.reveal pre code .hljs-built_in { color: #8be9fd !important; }
+			.reveal pre code .hljs-type { color: #8be9fd !important; }
+			.reveal pre code .hljs-literal { color: #bd93f9 !important; }
+			.reveal pre code .hljs-number { color: #bd93f9 !important; }
+			.reveal pre code .hljs-string { color: #f1fa8c !important; }
+			.reveal pre code .hljs-comment { color: #6272a4 !important; font-style: italic; }
+			.reveal pre code .hljs-function { color: #50fa7b !important; }
+			.reveal pre code .hljs-title { color: #50fa7b !important; }
+			.reveal pre code .hljs-params { color: #ffb86c !important; }
+			.reveal pre code .hljs-class { color: #8be9fd !important; }
+			.reveal pre code .hljs-attr { color: #50fa7b !important; }
 			
 			/* Tables */
 			.reveal table {
@@ -123,6 +154,7 @@
 			.bliva-arch-diagram strong {
 				font-weight: 700;
 				font-size: 1.05em;
+                color: #e74c3c;
 			}
 			
 			/* Responsive adjustments */
@@ -140,9 +172,11 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
+				<!-- First slides from markdown -->
 				<section data-markdown="slides.md"
 						 data-separator="^\n---\n"
-						 data-separator-vertical="^\n--\n">
+						 data-separator-vertical="^\n--\n"
+						 data-separator-notes="^Note:">
 				</section>
 			</div>
 		</div>
@@ -161,6 +195,10 @@
 				minScale: 0.2,
 				maxScale: 2.0,
 				center: false,
+				markdown: {
+					smartypants: true,
+					breaks: true
+				},
 				plugins: [ RevealMarkdown, RevealHighlight ]
 			});
 		</script>

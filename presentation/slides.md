@@ -91,121 +91,20 @@
 
 ### BLIVA System Design - Complete Pipeline
 
-<div style="font-size: 0.7em;">
+<div style="font-size: 1em; color: #000;">
 
-<div style="display: grid; grid-template-columns: 2fr 3fr; gap: 20px; align-items: start;">
+**Type 1: Query Embeddings** - BLIP-2, InstructBLIP → Q-Former
 
-<div>
-<div style="background: #e3f2fd; padding: 8px; border-radius: 6px; margin-bottom: 8px; color: #1565c0;">
-<strong>Type 1: Query Embeddings</strong><br>
-BLIP-2, InstructBLIP → Q-Former
-</div>
+**Type 2: Patch Embeddings** - LLaVA, Qwen-VL → Direct patches
 
-<div style="background: #fff3e0; padding: 8px; border-radius: 6px; margin-bottom: 8px; color: #e65100;">
-<strong>Type 2: Patch Embeddings</strong><br>
-LLaVA, Qwen-VL → Direct patches
-</div>
+**✓ BLIVA = Both Combined** - Dual pathway architecture
 
-<div style="background: #e8f5e9; padding: 8px; border-radius: 6px; margin-bottom: 12px; color: #2e7d32;">
-<strong>✓ BLIVA = Both Combined</strong><br>
-Dual pathway architecture
-</div>
-
-<div style="background: #f0f0f0; padding: 8px; border-radius: 6px; font-size: 0.95em; color: #424242;">
-<strong>Key Flow:</strong><br>
-1. Vision Encoder processes image<br>
-2. Q-Former extracts queries<br>
-3. Patches encoded separately<br>
-4. Both feed Pre-trained LLM<br>
+**Key Flow:**
+1. Vision Encoder processes image
+2. Q-Former extracts queries  
+3. Patches encoded separately
+4. Both feed Pre-trained LLM
 5. Instruction-aware generation
-</div>
-</div>
-
-<div class="bliva-arch-diagram">
-<!-- Top: Pre-trained LLM -->
-<div style="grid-column: 2 / 5; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 16px; border-radius: 10px; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.3); font-size: 1.3em;">
-Pre-trained LLM
-</div>
-
-<!-- Middle Row: Projections and Embeddings -->
-<div style="grid-column: 1 / 2; grid-row: 2;">
-<div style="background: #fff3e0; padding: 12px; border: 3px solid #ff9800; border-radius: 8px; text-align: center; margin-bottom: 8px; color: #e65100; font-weight: bold; font-size: 1.1em;">
-Projection
-</div>
-<div style="text-align: center; font-size: 2.5em; color: #667eea; font-weight: bold;">↓</div>
-<div style="background: #e3f2fd; padding: 12px; border: 3px solid #2196F3; border-radius: 8px; text-align: center; color: #1565c0; font-weight: bold; font-size: 1.05em;">
-Learned Query<br>Embeddings
-</div>
-</div>
-
-<div style="grid-column: 3 / 4; grid-row: 2;">
-<div style="background: #fff3e0; padding: 12px; border: 3px solid #ff9800; border-radius: 8px; text-align: center; margin-bottom: 8px; color: #e65100; font-weight: bold; font-size: 1.1em;">
-Projection
-</div>
-<div style="text-align: center; font-size: 2.5em; color: #667eea; font-weight: bold;">↓</div>
-<div style="background: #f3e5f5; padding: 12px; border: 3px solid #9c27b0; border-radius: 8px; text-align: center; color: #6a1b9a; font-weight: bold; font-size: 1.05em;">
-Encoded Patch<br>Embeddings
-</div>
-</div>
-
-<div style="grid-column: 4 / 5; grid-row: 2;">
-<div style="background: #e8f5e9; padding: 12px; border: 3px solid #4caf50; border-radius: 8px; text-align: center; margin-bottom: 8px; color: #2e7d32; font-weight: bold; font-size: 1.1em;">
-Projection<br>Embeddings
-</div>
-<div style="text-align: center; font-size: 2.5em; color: #667eea; font-weight: bold;">↓</div>
-<div style="background: #e8f5e9; padding: 10px; border: 3px solid #4caf50; border-radius: 8px; text-align: center; color: #2e7d32; font-weight: bold; font-size: 1.05em;">
-Encoded Patch
-</div>
-</div>
-
-<!-- Q-Former Row -->
-<div style="grid-column: 1 / 3; grid-row: 3; position: relative;">
-<div style="background: #ffe0b2; padding: 15px; border: 3px solid #ff9800; border-radius: 10px; text-align: center; font-weight: bold; color: #e65100; font-size: 1.2em;">
-Q-Former
-<div style="font-size: 0.85em; font-weight: 600; margin-top: 6px; color: #d84315;">
-Feed-Forward → Cross-Attention → Self-Attention
-</div>
-</div>
-<div style="position: absolute; right: -35px; top: 50%; font-size: 2.5em; color: #ff9800; font-weight: bold;">→</div>
-</div>
-
-<div style="grid-column: 3 / 5; grid-row: 3; display: flex; align-items: center; gap: 10px;">
-<div style="flex: 1; background: #e3f2fd; padding: 14px; border: 3px solid #2196F3; border-radius: 8px; text-align: center; color: #1565c0; font-weight: bold; font-size: 1.05em;">
-Encoded<br>Patch<br>Embeddings
-</div>
-<div style="font-size: 2.5em; color: #2196F3; font-weight: bold;">→</div>
-<div style="flex: 1; background: #fff9e6; padding: 14px; border: 3px solid #ffc107; border-radius: 8px; text-align: center; color: #f57f17; font-weight: bold; font-size: 1.05em;">
-Queries
-</div>
-</div>
-
-<!-- Bottom Row: Text and Vision Encoder -->
-<div style="grid-column: 1 / 2; grid-row: 4; text-align: center;">
-<div style="text-align: center; font-size: 2.5em; color: #667eea; font-weight: bold;">↑</div>
-<div style="background: #e0e0e0; padding: 12px; border: 3px solid #757575; border-radius: 8px; margin-bottom: 10px; color: #424242; font-weight: bold; font-size: 1.05em;">
-Text Embeddings
-</div>
-<div style="display: flex; align-items: center; justify-content: center; gap: 10px; color: #424242; font-weight: 600;">
-<div style="background: #64b5f6; color: white; padding: 8px 12px; border-radius: 6px; font-size: 1em;">👤</div>
-<div style="text-align: left; font-size: 0.95em;">What is this<br>image about?</div>
-</div>
-<div style="margin-top: 8px; font-weight: bold; font-size: 1em; color: #424242;">User Instruction</div>
-</div>
-
-<div style="grid-column: 3 / 5; grid-row: 4; text-align: center;">
-<div style="text-align: center; font-size: 2.5em; color: #667eea; font-weight: bold;">↑</div>
-<div style="background: #a5d6a7; padding: 14px; border: 3px solid #4caf50; border-radius: 10px; font-weight: bold; margin-bottom: 10px; color: #2e7d32; font-size: 1.2em;">
-Vision Encoder
-</div>
-<div style="background: #fff; border: 3px solid #9e9e9e; border-radius: 8px; padding: 10px;">
-<div style="background: #ff6b6b; color: white; padding: 6px; font-size: 1em; font-weight: bold; border-radius: 4px;">HOLLYWOOD</div>
-<div style="font-size: 0.95em; margin-top: 6px; color: #424242; font-weight: 600;">Input Image</div>
-</div>
-</div>
-
-</div>
-
-</div>
 
 </div>
 
@@ -247,51 +146,162 @@ Vision Encoder
 
 ### Complete System Architecture
 
-<div style="font-size: 0.65em;">
+<div style="font-size: 0.58em; padding: 0;">
 
-```
-┌─────────────┐
-│   Image     │
-│  224×224×3  │
-└──────┬──────┘
-       │
-       ▼
-┌─────────────────────┐
-│   Vision Encoder    │
-│  EVA-CLIP (frozen)  │
-│   Output: 257×1408  │
-└──────┬──────────────┘
-       │
-       ├──────────────────────────┬────────────────────────┐
-       │                          │                        │
-       ▼                          ▼                        ▼
-┌────────────┐         ┌──────────────────┐    ┌──────────────────┐
-│  Q-Former  │         │  Projection_A    │    │  Text Queries    │
-│  (32 query)│         │  (encoded patch) │    │                  │
-└─────┬──────┘         └────────┬─────────┘    └────────┬─────────┘
-      │                         │                       │
-      ▼                         ▼                       ▼
-┌────────────┐         ┌──────────────────┐    ┌──────────────────┐
-│Projection_Q│         │  256 × 4096      │    │  Text Embeddings │
-│ 32 × 4096  │         │  embeddings      │    │                  │
-└─────┬──────┘         └────────┬─────────┘    └────────┬─────────┘
-      │                         │                       │
-      └────────────┬────────────┴───────────────────────┘
-                   ▼
-         ┌────────────────────┐
-         │   Concatenation    │
-         │   All Embeddings   │
-         └─────────┬──────────┘
-                   ▼
-         ┌────────────────────┐
-         │   Vicuna-7B LLM    │
-         │     (frozen)       │
-         └─────────┬──────────┘
-                   ▼
-         ┌────────────────────┐
-         │   Text Response    │
-         └────────────────────┘
-```
+<div style="display: grid; grid-template-columns: 43% 57%; gap: 15px; align-items: start;">
+
+<!-- LEFT: Visual Diagram -->
+<div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 12px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+
+<!-- Input Image -->
+<div style="text-align: center; margin-bottom: 8px;">
+<div style="background: #fff; border: 2px solid #dee2e6; border-radius: 5px; padding: 6px; display: inline-block;">
+<div style="background: #ff6b6b; color: white; padding: 3px 10px; border-radius: 3px; font-weight: bold; font-size: 0.9em;">🎬 HOLLYWOOD</div>
+<div style="font-size: 0.8em; margin-top: 3px; color: #666;">Input Image</div>
+</div>
+</div>
+
+<div style="text-align: center; font-size: 1.6em; color: #667eea; font-weight: bold; margin: 5px 0;">↓</div>
+
+<!-- Vision Encoder -->
+<div style="background: linear-gradient(135deg, #a5d6a7 0%, #81c784 100%); padding: 10px; border-radius: 6px; text-align: center; color: #1b5e20; font-weight: bold; border: 2px solid #4caf50; margin-bottom: 8px; font-size: 0.95em;">
+Vision Encoder<br>
+<span style="font-size: 0.8em; font-weight: normal;">EVA-CLIP (frozen)</span>
+</div>
+
+<!-- Split into 3 paths -->
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin: 8px 0;">
+
+<!-- Path 1: Q-Former -->
+<div>
+<div style="text-align: center; font-size: 1.4em; color: #667eea; font-weight: bold;">↓</div>
+<div style="background: #ffe0b2; padding: 8px 4px; border-radius: 5px; text-align: center; border: 2px solid #ff9800; color: #e65100; font-weight: bold; font-size: 0.85em; min-height: 50px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+<div>Q-Former</div>
+<div style="font-size: 0.8em; font-weight: normal;">(32 queries)</div>
+</div>
+<div style="text-align: center; font-size: 1.4em; color: #667eea; font-weight: bold; margin: 3px 0;">↓</div>
+<div style="background: #e3f2fd; padding: 6px 4px; border-radius: 5px; text-align: center; border: 2px solid #2196F3; color: #1565c0; font-size: 0.8em; font-weight: 600;">
+Proj_Q<br>32×4096
+</div>
+</div>
+
+<!-- Path 2: Patches -->
+<div>
+<div style="text-align: center; font-size: 1.4em; color: #667eea; font-weight: bold;">↓</div>
+<div style="background: #f3e5f5; padding: 8px 4px; border-radius: 5px; text-align: center; border: 2px solid #9c27b0; color: #6a1b9a; font-weight: bold; font-size: 0.85em; min-height: 50px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+<div>Encoded</div>
+<div>Patches</div>
+</div>
+<div style="text-align: center; font-size: 1.4em; color: #667eea; font-weight: bold; margin: 3px 0;">↓</div>
+<div style="background: #f3e5f5; padding: 6px 4px; border-radius: 5px; text-align: center; border: 2px solid #9c27b0; color: #6a1b9a; font-size: 0.8em; font-weight: 600;">
+Proj_A<br>256×4096
+</div>
+</div>
+
+<!-- Path 3: Text -->
+<div>
+<div style="text-align: center; font-size: 1.4em; color: #667eea; font-weight: bold;">↓</div>
+<div style="background: #e0e0e0; padding: 8px 4px; border-radius: 5px; text-align: center; border: 2px solid #757575; color: #424242; font-weight: bold; font-size: 0.85em; min-height: 50px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+<div>Text</div>
+<div>Instruction</div>
+</div>
+<div style="text-align: center; font-size: 1.4em; color: #667eea; font-weight: bold; margin: 3px 0;">↓</div>
+<div style="background: #e0e0e0; padding: 6px 4px; border-radius: 5px; text-align: center; border: 2px solid #757575; color: #424242; font-size: 0.8em; font-weight: 600;">
+Text<br>Embed
+</div>
+</div>
+
+</div>
+
+<!-- Convergence -->
+<div style="text-align: center; font-size: 1.6em; color: #667eea; font-weight: bold; margin: 5px 0;">↓</div>
+
+<!-- Concatenation -->
+<div style="background: #fff9c4; padding: 8px; border-radius: 6px; text-align: center; border: 2px solid #fbc02d; color: #f57f17; font-weight: bold; margin-bottom: 6px; font-size: 0.9em;">
+Concatenate All Embeddings
+</div>
+
+<div style="text-align: center; font-size: 1.6em; color: #667eea; font-weight: bold; margin: 5px 0;">↓</div>
+
+<!-- LLM -->
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 10px; border-radius: 6px; text-align: center; color: white; font-weight: bold; border: 2px solid #5e35b1; margin-bottom: 6px; font-size: 0.95em;">
+Vicuna-7B LLM<br>
+<span style="font-size: 0.8em; font-weight: normal;">(frozen)</span>
+</div>
+
+<div style="text-align: center; font-size: 1.6em; color: #667eea; font-weight: bold; margin: 5px 0;">↓</div>
+
+<!-- Output -->
+<div style="background: #c8e6c9; padding: 8px; border-radius: 6px; text-align: center; border: 2px solid #4caf50; color: #2e7d32; font-weight: bold; font-size: 0.9em;">
+💬 Text Response
+</div>
+
+</div>
+
+<!-- RIGHT: Explanation -->
+<div style="display: flex; flex-direction: column; gap: 8px;">
+
+<div style="background: #e3f2fd; padding: 8px; border-radius: 5px; border-left: 3px solid #2196F3;">
+<strong style="color: #1565c0; font-size: 1em;">1. Vision Encoding</strong>
+<ul style="margin: 4px 0 0 0; padding-left: 16px; line-height: 1.25;">
+<li>Input: Image 224×224×3</li>
+<li>Encoder: EVA-CLIP ViT-g/14 (frozen)</li>
+<li>Output: 257×1408 visual features</li>
+</ul>
+</div>
+
+<div style="background: #fff3e0; padding: 8px; border-radius: 5px; border-left: 3px solid #ff9800;">
+<strong style="color: #e65100; font-size: 1em;">2. Dual Pathway Processing</strong>
+<div style="margin-top: 4px;">
+
+<div style="margin-bottom: 5px;">
+<strong style="color: #d84315; font-size: 0.92em;">Path A - Query Embeddings:</strong>
+<ul style="margin: 2px 0 0 0; padding-left: 16px; line-height: 1.2; font-size: 0.92em;">
+<li>Q-Former with 32 learned queries</li>
+<li>FF → Cross-Attn → Self-Attn layers</li>
+<li>Projects to 32×4096 embeddings</li>
+</ul>
+</div>
+
+<div style="margin-bottom: 5px;">
+<strong style="color: #6a1b9a; font-size: 0.92em;">Path B - Patch Embeddings:</strong>
+<ul style="margin: 2px 0 0 0; padding-left: 16px; line-height: 1.2; font-size: 0.92em;">
+<li>Direct encoded patches from encoder</li>
+<li>Preserves fine-grained text info</li>
+<li>Projects to 256×4096 embeddings</li>
+</ul>
+</div>
+
+<div>
+<strong style="color: #424242; font-size: 0.92em;">Path C - Text Input:</strong>
+<ul style="margin: 2px 0 0 0; padding-left: 16px; line-height: 1.2; font-size: 0.92em;">
+<li>User instruction tokenized</li>
+<li>Text embeddings prepared</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+<div style="background: #e8f5e9; padding: 8px; border-radius: 5px; border-left: 3px solid #4caf50;">
+<strong style="color: #2e7d32; font-size: 1em;">3. LLM Integration</strong>
+<ul style="margin: 4px 0 0 0; padding-left: 16px; line-height: 1.25;">
+<li>All embeddings concatenated together</li>
+<li>Vicuna-7B LLM processes (frozen)</li>
+<li>Generates contextual text response</li>
+</ul>
+</div>
+
+<div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); padding: 8px; border-radius: 5px; border: 2px solid #9c27b0;">
+<strong style="color: #6a1b9a; font-size: 0.95em;">🎯 Key Innovation:</strong>
+<div style="margin-top: 4px; line-height: 1.25; color: #424242; font-size: 0.92em;">
+Combines semantic understanding from queries with text-aware visual details from patches for superior text-rich image understanding.
+</div>
+</div>
+
+</div>
+
+</div>
 
 </div>
 
@@ -510,35 +520,67 @@ def instruction_tuning_step(model, batch):
 
 ### Component Analysis
 
-<div style="font-size: 0.75em;">
+<div style="font-size: 0.68em;">
 
-**Ablation experiments show impact of each component:**
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px;">
 
-```python
-# Baseline: InstructBLIP (Q-Former only)
-# Accuracy: 41.6% OCR-VQA
+<!-- Left: VLM Architecture Comparison -->
+<div>
+<strong style="font-size: 1.1em; color: #2c3e50;">VLM Architecture Comparison</strong>
+<div style="margin-top: 10px; background: #f8f9fa; padding: 12px; border-radius: 8px; line-height: 1.4;">
 
-# + Add encoded patch embeddings
-# Accuracy: 45.83% OCR-VQA (+4.23%)
+**a) Flamingo:** Fixed query embeddings + XATTN Layer
 
-# + Instruction tuning with patches
-# Accuracy: 49.0% OCR-VQA (+7.4% total)
-```
+**b) BLIP-2 / InstructBLIP:** Q-Former with learned queries only
 
-**Table: Adding Individual Techniques**
+**c) LLaVA:** Direct encoded patch embeddings only
+
+**d) BLIVA (Ours):** Merges learned query embeddings + encoded patch embeddings
+
+<div style="background: #e8f5e9; padding: 8px; border-radius: 5px; margin-top: 8px; border-left: 3px solid #4caf50;">
+<strong style="color: #2e7d32;">✓ BLIVA combines both approaches</strong> for superior text-rich understanding
+</div>
+
+</div>
+</div>
+
+<!-- Right: Ablation Results -->
+<div>
+<strong style="font-size: 1.1em; color: #2c3e50;">Progressive Component Addition</strong>
+
+<div style="background: #2d2d2d; color: #f8f8f2; padding: 12px; border-radius: 6px; margin-top: 10px; font-size: 0.95em; line-height: 1.5;">
+<span style="color: #6272a4;"># Baseline: InstructBLIP (Q-Former only)</span><br>
+<span style="color: #6272a4;"># Accuracy: 41.6% OCR-VQA</span><br><br>
+
+<span style="color: #6272a4;"># + Add encoded patch embeddings</span><br>
+<span style="color: #6272a4;"># Accuracy: 45.83% OCR-VQA (+4.23%)</span><br><br>
+
+<span style="color: #6272a4;"># + Instruction tuning with patches</span><br>
+<span style="color: #6272a4;"># Accuracy: 49.0% OCR-VQA (+7.4% total)</span>
+</div>
+
+</div>
+
+</div>
+
+<strong style="font-size: 1.05em; color: #2c3e50;">Table: Adding Individual Techniques</strong>
+
+<div style="margin-top: 8px;">
 
 | Configuration | OCR-VQA | TextVQA | Visual7W | Average Δ |
 |---------------|---------|---------|----------|-----------|
 | Baseline (Q-former only) | 41.6 | 34.1 | 54.8 | - |
-| + Patch embeddings | 45.8 | 43.1 | 56.6 | +4.0% |
-| + Instruction tuning | 58.7 | 44.34 | 57.58 | +13.7% |
-| + Fine-tune projection | 62.2 | 44.86 | 57.96 | +16.4% |
+| + Patch embeddings | **45.8** | 43.1 | 56.6 | **+4.0%** |
+| + Instruction tuning | **58.7** | 44.34 | 57.58 | **+13.7%** |
+| + Fine-tune projection | **62.2** | 44.86 | 57.96 | **+16.4%** |
 | **BLIVA (Full)** | **62.2** | **44.86** | **57.96** | **+16.4%** |
 
 </div>
 
-<div style="background: #fff3cd; padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 0.75em;">
-<strong>Key Finding:</strong> Adding encoded patch embeddings provides immediate improvement, demonstrating their value for text-rich understanding.
+</div>
+
+<div style="background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%); padding: 12px; border-radius: 8px; margin-top: 12px; font-size: 0.72em; border-left: 4px solid #ffc107;">
+<strong style="color: #856404;">🔍 Key Finding:</strong> Adding encoded patch embeddings provides <strong>immediate +4.23% improvement</strong>, demonstrating their value for text-rich understanding. Full system achieves <strong>+16.4% average improvement</strong> over baseline.
 </div>
 
 ---
@@ -547,27 +589,31 @@ def instruction_tuning_step(model, batch):
 
 ### Text-Rich VQA Benchmark Results
 
-<div style="font-size: 0.7em;">
+<div style="font-size: 0.62em;">
 
-**Zero-Shot OCR-Free Results on Text-Rich VQA:**
+<strong style="font-size: 1.1em; color: #2c3e50;">Zero-Shot OCR-Free Results on Text-Rich VQA</strong>
+
+<div style="margin-top: 10px; overflow-x: auto;">
 
 | Model | OCR-VQA | TextVQA | VizWiz | MSVRIT | Average |
 |-------|---------|---------|--------|--------|---------|
-| **Flamingo-9B** | 44.7 | 31.8 | - | - | 38.3 |
-| **Flamingo-80B** | 50.6 | 35.0 | - | - | 42.8 |
-| **BLIP-2 (FlanT5XXL)** | 45.9 | 42.5 | 19.6 | 28.8 | 34.2 |
-| **InstructBLIP (Vicuna-7B)** | 50.1 | 45.2 | 34.5 | 39.4 | 42.3 |
-| **InstructBLIP (Vicuna-13B)** | 50.7 | 44.8 | 33.4 | 40.5 | 42.4 |
-| **MiniGPT-4** | 18.56 | - | - | - | - |
-| **LLaVA (13B)** | 37.98 | 39.7 | - | - | 38.8 |
-| **LLaVA-1.5 (13B)** | 42.1 | 58.2 | - | - | 50.2 |
-| **Qwen-VL** | 58.6 | 63.8 | 35.2 | 47.3 | 51.2 |
-| **BLIVA (Vicuna-7B)** | **57.96** | **45.83** | **42.9** | **23.81** | **42.6** |
+| Flamingo-9B | 44.7 | 31.8 | - | - | 38.3 |
+| Flamingo-80B | 50.6 | 35.0 | - | - | 42.8 |
+| BLIP-2 (FlanT5XXL) | 45.9 | 42.5 | 19.6 | 28.8 | 34.2 |
+| InstructBLIP (V-7B) | 50.1 | 45.2 | 34.5 | 39.4 | 42.3 |
+| InstructBLIP (V-13B) | 50.7 | 44.8 | 33.4 | 40.5 | 42.4 |
+| MiniGPT-4 | 18.56 | - | - | - | - |
+| LLaVA (13B) | 37.98 | 39.7 | - | - | 38.8 |
+| LLaVA-1.5 (13B) | 42.1 | 58.2 | - | - | 50.2 |
+| Qwen-VL | 58.6 | 63.8 | 35.2 | 47.3 | 51.2 |
+| **BLIVA (V-7B)** | **57.96** | **45.83** | **42.9** | **23.81** | **42.6** |
 
 </div>
 
-<div style="background: #e8f4f8; padding: 12px; border-radius: 8px; margin-top: 10px; font-size: 0.75em;">
-<strong>Note:</strong> BLIVA demonstrates robust performance with only 7B parameters, especially excelling on OCR-VQA (+17.76% vs InstructBLIP baseline).
+</div>
+
+<div style="background: linear-gradient(135deg, #e8f4f8 0%, #d1e7f0 100%); padding: 10px; border-radius: 6px; margin-top: 12px; font-size: 0.65em; border-left: 4px solid #2196F3;">
+<strong style="color: #1565c0;">📊 Key Insight:</strong> BLIVA achieves robust performance with only <strong>7B parameters</strong>, excelling on OCR-VQA with <strong>+17.76% improvement</strong> vs InstructBLIP baseline, demonstrating superior text-rich understanding.
 </div>
 
 ---
