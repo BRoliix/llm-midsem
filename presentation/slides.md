@@ -814,36 +814,36 @@ image, with its letters clearly visible."
 
 ## 7. Conclusion - Key Takeaways
 
-<div style="font-size: 0.72em;">
+<div style="font-size: 0.7em;">
 
-<div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); padding: 15px; border-radius: 8px; border-left: 5px solid #2196F3; margin-bottom: 15px;">
-<strong style="color: #1565c0; font-size: 1.3em;">1. Simple Yet Effective Design</strong>
-<ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.4; color: #424242;">
+<div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); padding: 15px; border-radius: 8px; border-left: 5px solid #2196F3; margin-bottom: 12px;">
+<div style="color: #1565c0; font-size: 1.25em; font-weight: bold; margin-bottom: 8px;">1. Simple Yet Effective Design</div>
+<ul style="margin: 0; padding-left: 20px; line-height: 1.4; color: #424242;">
 <li>Combines strengths of existing approaches (InstructBLIP + LLaVA)</li>
 <li>Minimal additional parameters (just projection layers)</li>
 </ul>
 </div>
 
-<div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); padding: 15px; border-radius: 8px; border-left: 5px solid #ff9800; margin-bottom: 15px;">
-<strong style="color: #e65100; font-size: 1.3em;">2. Superior Text-Rich Understanding</strong>
-<ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.4; color: #424242;">
+<div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); padding: 15px; border-radius: 8px; border-left: 5px solid #ff9800; margin-bottom: 12px;">
+<div style="color: #e65100; font-size: 1.25em; font-weight: bold; margin-bottom: 8px;">2. Superior Text-Rich Understanding</div>
+<ul style="margin: 0; padding-left: 20px; line-height: 1.4; color: #424242;">
 <li><strong>17.76% improvement</strong> on OCR-VQA benchmark</li>
 <li>Robust performance across diverse text-heavy scenarios</li>
 </ul>
 </div>
 
-<div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); padding: 15px; border-radius: 8px; border-left: 5px solid #4caf50; margin-bottom: 15px;">
-<strong style="color: #2e7d32; font-size: 1.3em;">3. Efficient and Practical</strong>
-<ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.4; color: #424242;">
+<div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); padding: 15px; border-radius: 8px; border-left: 5px solid #4caf50; margin-bottom: 12px;">
+<div style="color: #2e7d32; font-size: 1.25em; font-weight: bold; margin-bottom: 8px;">3. Efficient and Practical</div>
+<ul style="margin: 0; padding-left: 20px; line-height: 1.4; color: #424242;">
 <li>Only <strong>7.9B parameters</strong> vs 13B+ in competing models</li>
 <li>Two-stage training: <strong>12 hours total</strong> on 8 GPUs</li>
 <li>Maintains frozen backbone (easy to deploy)</li>
 </ul>
 </div>
 
-<div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); padding: 15px; border-radius: 8px; border-left: 5px solid #9c27b0;">
-<strong style="color: #6a1b9a; font-size: 1.3em;">4. Open and Accessible</strong>
-<ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.4; color: #424242;">
+<div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); padding: 15px; border-radius: 8px; border-left: 5px solid #9c27b0; margin-bottom: 12px;">
+<div style="color: #6a1b9a; font-size: 1.25em; font-weight: bold; margin-bottom: 8px;">4. Open and Accessible</div>
+<ul style="margin: 0; padding-left: 20px; line-height: 1.4; color: #424242;">
 <li>Code and models freely available</li>
 <li><strong>github.com/mlpc-ucsd/BLIVA</strong></li>
 </ul>
